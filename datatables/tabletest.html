@@ -1,0 +1,132 @@
+<html>
+<head>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script	type="text/javascript" src="http://www.datatables.net/release-datatables/media/js/jquery.dataTables.js"></script>
+<script type="text/javascript">
+var rows = 100;
+var cols = 25;
+var dataA = [];
+var dataB = [];
+
+var currentData = dataA;
+var current = "A";
+	
+var dtable;
+
+$(document).ready(function(){
+	initData();
+	createGrid();
+	setInterval("updateGrid()", 2000);
+});
+
+function initData() {
+	for(var i = 0; i < rows; i++){
+		var row = []
+		for(var j = 0; j < cols; j++){
+			row.push(Math.floor(Math.random()*101));
+		}
+		dataA.push(row);
+	}
+
+	for(var i = 0; i < rows; i++){
+		var row = []
+		for(var j = 0; j < cols; j++){
+			row.push(Math.floor(Math.random()*101));
+		}
+		dataB.push(row);
+	}
+}
+
+function createGrid() {
+	$("#timestamp_before").text(new Date().toString());
+
+	if(current === "A"){
+		currentData = dataB;
+		current = "B";
+	} else {
+		currentData = dataA;
+		current = "A"
+	}
+
+	var html = "<table id='grid' border='1' cellpadding='10' cellspacing='0' class='tablesorter'>";
+
+	html = html + "<thead><tr>";
+	for(var i = 0; i < currentData[0].length; i++){
+		html = html + "<th>col" + i + "</col>";
+	}
+
+	html = html + "</tr></thead><tbody>";
+
+	$.each(currentData, function(rowNum, rowData){
+		html = html + "<tr>"
+		$.each(rowData, function(colNumm, colData){
+			html = html + "<td>" + colData + "</td>"
+		});
+		html = html + "</tr>"
+	});
+
+	html = html + "</tbody></table>";
+
+	if(dtable === undefined){
+		
+	} else {
+		dtable.fnDestroy();
+	}
+
+	$("#grid").replaceWith(html);
+
+
+	var targets = [];
+	for(var i = 0; i < cols; i++){
+		targets.push(i);
+	}
+	dtable = $("#grid").dataTable({
+		"bInfo": false,
+		"bFilter":false,
+		"bPaginate": false,
+		"bSort": true,
+		"aoColumnDefs": [
+			{
+				"fnRender": function(oObj){
+					
+					var data = oObj.aData[oObj.iDataColumn];
+					if(data > 50) {
+						return "<div style='color:red;'>" + data + "</data>";
+					}
+					return data;
+				},
+				"aTargets": targets
+			}
+		]
+	});
+
+	$("#timestamp_after").text(new Date().toString());
+
+}
+
+
+function updateGrid() {
+	$("#timestamp_before").text(new Date().toString());
+	if(current === "A"){
+		currentData = dataB;
+		current = "B";
+	} else {
+		currentData = dataA;
+		current = "A"
+	}
+	
+	dtable.fnClearTable();
+	dtable.fnAddData(currentData);	
+
+	$("#timestamp_after").text(new Date().toString());
+
+}
+
+</script>
+</head>
+<body>
+<div id="timestamp_before"></div>
+<div id="timestamp_after"></div>
+<div id="grid"></div>
+</body>
+</html>

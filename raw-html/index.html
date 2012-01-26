@@ -1,0 +1,31 @@
+<html>
+<head>
+<script type="text/javascript">
+var windows = [];
+
+function openwindows(count) {
+	var win;
+	for(var i = 0; i < count; i++) {
+		win = window.open("file:tabletest.html", "_blank", "width=200, height=200");
+		windows.push(win);
+	}
+}
+
+function closeAll() {
+	var len = windows.length;
+	for(var i = 0; i < len; i++){
+		windows[i].close();
+	}
+	windows = [];
+}
+</script>
+</head>
+<body>
+<h3>Raw HTML</h3>
+<button onclick="openwindows(1);">Open 1 Window</button>
+<br/><br/>
+<button onclick="openwindows(20);">Open 20 Windows</button>
+<br/><br/>
+<button onclick="closeAll();">Close windows</button
+</body>
+</html>
