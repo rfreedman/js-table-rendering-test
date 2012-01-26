@@ -3,7 +3,7 @@ Performance tests for rendering large-ish tables, 20 at a time, with various jav
 The goal is to be able to have 20 open windows, each with a grid with as many rows of 25 columns as possible (300 is a nice target), each updating all cells every 2 seconds.
 
 In addition, the grid must support:
-* At least minimal conditional formatting of the cells, e.g. "turn a cell red when the value exceeds 50"</li>
+* At least minimal conditional formatting of the cells, e.g. "turn a cell red when the value exceeds 50"
 * Sorting - ultimately, we want the table to maintain the sort when the data is updated, though none of the current examples do this.
 
 Nice-to-haves include:
@@ -11,3 +11,4 @@ Nice-to-haves include:
 * Column Reording
 * Hide/Show Columns
 
+ 
