@@ -1,1 +1,18 @@
 Performance tests for rendering large-ish tables, 20 at a time, with various javascript grid libraries.
+
+<p>
+The goal is to be able to have 20 open windows, each with a grid with as many rows of 25 columns as possible (300 is a nice target), each updating all cells every 2 seconds.
+</p>
+<p>
+In addition, the grid must support:
+<ul>
+<li>At least minimal conditional formatting of the cells, e.g. "turn a cell red when the value exceeds 50"</li>
+<li>Sorting - ultimately, we want the table to maintain the sort when the data is updated, though none of the current examples do this</li>
+</ul>
+Nice-to-haves include:
+<ul>
+ <li>Fixed Header</li>
+ <li>Column Reording</li>
+ <li>Hide/Show Columns</li>
+</ul>
+</p>
